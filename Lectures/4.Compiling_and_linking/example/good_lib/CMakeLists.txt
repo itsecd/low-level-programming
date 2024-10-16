@@ -1,0 +1,1 @@
+add_library(good_lib SHARED source.cpp)
