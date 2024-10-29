@@ -33,17 +33,3 @@ target_compile_definitions(3_vec_mul_avx PRIVATE NAMESPACE=avx)
 add_executable(3_vec_mul 3_vec_mul_main.cpp scope_timer.cpp)
 target_link_libraries(3_vec_mul PRIVATE
         3_vec_mul_scalar 3_vec_mul_sse 3_vec_mul_avx 3_vec_mul_intrinsics )
-
-
-
-
-#add_executable(3_vec_mul 3_vec_mul.cpp scope_timer.cpp)
-#add_executable(3_vec_mul_sse 3_vec_mul.cpp scope_timer.cpp)
-#add_executable(3_vec_mul_avx 3_vec_mul.cpp scope_timer.cpp)
-#
-#add_executable(3_vec_mul2 3_vec_mul2.cpp scope_timer.cpp)
-#
-#
-#target_compile_options(3_vec_mul_sse PRIVATE ${FAST_MATH_FLAG} )
-#target_compile_options(3_vec_mul_avx PRIVATE ${FAST_MATH_FLAG} ${AVX_FLAG})
-#target_compile_options(3_vec_mul2 PRIVATE ${AVX_FLAG} )
