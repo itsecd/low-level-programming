@@ -8,7 +8,11 @@ endif()
 set(CMAKE_C_STANDARD 99) # c99 is the last C standard where gets() is included in the standard library
 
 #for Linux and MinGW
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-stack-protector -fcf-protection=none -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -z execstack") # add -m32 flag to build x86-32 executables
+if(MINGW)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-stack-protector -fcf-protection=none -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 ") # add -m32 flag to build x86-32 executables
+else()
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-stack-protector -fcf-protection=none -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -z execstack") #  execstack is supported on Linux, but not on Windows
+endif()
 
 add_executable(stack0 stack0.c)
 add_executable(stack1 stack1.c)

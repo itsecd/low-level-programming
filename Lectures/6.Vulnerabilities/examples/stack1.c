@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
-#include <err.h>
+
 
 
 
@@ -15,7 +15,8 @@ int main(int argc, char **argv)
 	
 
     if(argc == 1) {
-        errx(1, "please specify an argument\n");
+        puts("please specify an argument\n");
+        exit(1);
     }
 
     s.modified = 0;
