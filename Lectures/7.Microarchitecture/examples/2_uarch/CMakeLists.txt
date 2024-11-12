@@ -1,0 +1,5 @@
+project(L7.uarch)
+
+add_executable(21_superscalar 21_superscalar.cpp)
+add_executable(22_false_dependency 22_false_dependency.cpp)
+add_executable(23_speculative_execution 23_speculative_execution.cpp)

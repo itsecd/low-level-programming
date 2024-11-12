@@ -1,0 +1,4 @@
+project(L7.multicore)
+add_executable(31_memory_reordering 31_memory_reordering.cpp)
+add_executable(32_atomics 32_atomics.cpp)
+add_executable(33_false_sharing 33_false_sharing.cpp)
