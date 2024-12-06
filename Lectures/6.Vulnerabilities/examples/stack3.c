@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     gets(s.buffer);
 
     if(s.fp) {
-        printf("calling function pointer, jumping to 0x%08x\n", s.fp);
+        printf("calling function pointer, jumping to 0x%p\n", s.fp);
         s.fp();
     }
 }
