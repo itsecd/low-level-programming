@@ -72,24 +72,30 @@ void signal_handler(int signal, siginfo_t *si, void *context)
     clear_breakpoint((void*)&target_function);
     puts("\t Original instruction restored");
 
-    ((ucontext_t*)context)->uc_mcontext.gregs[REG_RIP] -= 1; // comment this to break the program :)
+    ((ucontext_t*)context)->uc_mcontext.gregs[REG_RIP] -= 1; // comment this line to break the program
     puts("\t RIP fixed to re-run original instruction");
 }
 
+void set_sigtrap_handler();
+
 int main(){
+    set_sigtrap_handler();
+
+    target_function();
+    set_breakpoint((void*)&target_function);
+    target_function();
+    target_function();
+}
+
+void set_sigtrap_handler(){
     struct sigaction sa{};
     sa.sa_sigaction = signal_handler,
-    sa.sa_flags = SA_SIGINFO;
-
+            sa.sa_flags = SA_SIGINFO;
     if(sigaction(SIGTRAP, &sa, nullptr))
     {
         perror("sigaction() failed");
         exit(-1);
     }
-    target_function();
-    set_breakpoint((void*)&target_function);
-    target_function();
-    target_function();
 }
 
 
