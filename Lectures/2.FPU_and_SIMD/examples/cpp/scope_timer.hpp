@@ -1,12 +1,9 @@
-//
-// Created by Alexey on 16.09.2024.
-//
-
 #ifndef REPO_SCOPE_TIMER_HPP
 #define REPO_SCOPE_TIMER_HPP
 
 #include <chrono>
 #include <string_view>
+#include <string>
 
 struct scope_timer {
     using duration_t = std::chrono::duration<float,std::milli>;

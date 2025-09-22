@@ -9,13 +9,11 @@ global main
 set_single_precision:
     mov eax, 3
     shl eax, 8
-    not eax
-    sub rsp, 8
-    fstcw [rsp]
-    mov dx, [rsp]
-    and dx, ax
-    mov [rsp], dx
-    fldcw [rsp]
+    not eax    ; make bit-mask in AX
+    sub rsp, 8 
+    fstcw [rsp] ; save mask to the stack
+    and [rsp], ax  ; alter the saved mask
+    fldcw [rsp] ; load mask from stack
     add rsp, 8
     ret
 
@@ -25,20 +23,20 @@ main:
     fld dword[b]
     fdiv 
     
-    ; single precisionc (x87 FPU)
+    ; single precision (x87 FPU)
     call set_single_precision
     fld dword[a]
     fld dword[b]
     fdiv
     
-    ; single precision
+    ; single precision (SSE)
     movss xmm0, [a]
     divss xmm0, [b]
     sub rsp, 4
     movss [rsp], xmm0
+    
     fld dword[rsp]
     add rsp, 4
-    
     nop ; <= поставьте точку останова здесь
     
     ; в ST0 - результат вычислений одинарной точности c помощью SSE (по IEEE-754)

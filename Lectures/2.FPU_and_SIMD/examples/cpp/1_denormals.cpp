@@ -8,6 +8,8 @@
 #ifdef _MSC_VER
 #include <xmmintrin.h>
 #endif
+
+
 void enable_ftz_daz(){
 #ifdef _MSC_VER
     auto mxcsr = _mm_getcsr();        /*read the old MXCSR setting  */    \
@@ -31,26 +33,23 @@ void enable_ftz_daz(){
 #endif
 
 
-
-
-void fill(std::span<float> f, float start_value, float a){
+void make_geometric_progression(std::span<float> f, float start_value, float a){
     float result = start_value;
     for(auto& x: f)
         x = result*=a;
 }
 
 // volatile is used to prevent optimizations
-volatile size_t VECTOR_SIZE = 32*1024*1024;
+volatile size_t VECTOR_SIZE = 32ULL*1024*1024;
 volatile float MULTIPLIER1 = 1.00001;
 volatile float MULTIPLIER2 = 0.99999;
 
 
 int main(){
     auto v = std::vector<float>(VECTOR_SIZE, 0);
-
     {
-        scope_timer _{"Without denormals"};
-        fill(v, 1.0f, MULTIPLIER1);
+        scope_timer _{"Ascending progression"};
+        make_geometric_progression(v, 1.0f, MULTIPLIER1);
     }
     std::cout << "Last element of v:" << v.back()<< std::endl<< std::endl;
 
@@ -59,8 +58,8 @@ int main(){
 #endif
 
     {
-        scope_timer _{"With denormals"};
-        fill(v, 1.0f, MULTIPLIER2);
+        scope_timer _{"Descending progression"};
+        make_geometric_progression(v, 1.0f, MULTIPLIER2);
     }
     std::cout << "Last element of v:" << v.back()<< std::endl;
 
@@ -72,7 +71,17 @@ int main(){
                 break;
             ++i;
         }
-        std::cout << "Last normalized number index:" << i;
+        std::cout << "Index of last normalized number:" << i;
+    }
+    else
+    {
+        size_t i = 0;
+        for(auto x: v){
+            if(x == 0)
+                break;
+            ++i;
+        }
+        std::cout << "Index of last non-zero element:" << i;
     }
 
 }

@@ -29,5 +29,5 @@ volatile float y = 3;
 int main(){
     std::cout << x/y << std::endl;
     enable_exception();
-    std::cout << x/y << std::endl;
+    std::cout << x/y << std::endl; // дробь 2/3 не может быть точно представлена, возникает аппаратное исключение
 }

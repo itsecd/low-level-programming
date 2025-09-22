@@ -1,7 +1,3 @@
-//
-// Created by Alexey on 16.09.2024.
-//
-
 #include "scope_timer.hpp"
 #include <iostream>
 
