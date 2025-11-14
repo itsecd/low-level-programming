@@ -26,9 +26,9 @@
 
 [3.Соглашения о вызовах](Lectures/3.Calling_conventions)
 
-[4.Компиляция и компоновка](Lectures/4.Compiling_and_linking)
+[4.Основы декомпиляции](Lectures/4.Decompilation)
 
-[5.Основы декомпиляции](Lectures/5.Decompilation)
+[5.Компиляция и компоновка](Lectures/5.Compiling_and_linking)
 
 [6.Типовые уязвимости и меры защиты](Lectures/6.Vulnerabilities)
 
