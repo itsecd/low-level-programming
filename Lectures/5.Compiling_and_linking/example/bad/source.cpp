@@ -18,13 +18,13 @@ static function_ptr get_function(const char* lib_path, const char* function_name
     if(!lib) return nullptr;
     void* ptr = GetProcAddress(lib, function_name);
     return (function_ptr)ptr;
-    #define GOOD_LIB_PATH "./good_lib_copy.dll"
+    #define GOOD_LIB_PATH "./good_copy.dll"
 #else
     void* module_ptr = dlopen(lib_path, RTLD_NOW);
     if(!module_ptr) return nullptr;
     void* ptr = dlsym(module_ptr, function_name);
     return (function_ptr)ptr;
-#define GOOD_LIB_PATH "./good_lib_copy.so"
+#define GOOD_LIB_PATH "./libgood_copy.so"
 #endif
 }
 

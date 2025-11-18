@@ -1,15 +1,6 @@
-#ifdef _MSC_VER
-#define EXTERN __declspec(dllimport)
-#else
-#define EXTERN extern
-#endif
 
-extern "C" {
-     EXTERN void function();
-     EXTERN void function2();
-}
+extern void call_external_functions();
 
 int main(){
-    function();
-    function2();
+    call_external_functions();
 }

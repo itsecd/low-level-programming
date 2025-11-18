@@ -1,0 +1,1 @@
+add_library(bad SHARED source.cpp)
