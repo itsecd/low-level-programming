@@ -14,7 +14,7 @@ void process_x(){
 void process_y(){
     for(int i = 0; i < 10000000;++i)
         asm volatile(
-           "lock add %0, 1":"+m"(y)::"memory"
+           "lock add dword ptr %0, 1":"+m"(y)::"memory"
         );
 }
 

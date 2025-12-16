@@ -11,7 +11,11 @@
 
 
 constexpr size_t SIZE = 1024*1024*16; //16 MB
-constexpr bool USE_NONSPECULATIVE = 0;
+#ifdef NOSPEC
+constexpr bool DISABLE_SPECULATION = true;
+#else
+constexpr bool DISABLE_SPECULATION = false;
+#endif
 
 // this array resides in the BSS section
 // no memory reallocation is performed at the runtime
@@ -55,49 +59,39 @@ __attribute__((noinline)) void fill_repetitive(){ // produces complex repetitive
     }
 }
 
+constexpr double DELTA = 0.001;
 
-const double delta = 0.001;
-double process1(){           // 'values' is a static array, the execution time depends only on the True/False distribution
+__attribute__((noinline)) double process(){
+    scope_timer _{"Process"};
     double result = 0;
     for(auto b: values){
         if(b)
-            result += delta;
+            result += DELTA;
         else
-            result -= delta;
+            result -= DELTA;
+
+        if constexpr  (DISABLE_SPECULATION)
+            asm("lfence\n\t"); // LFENCE waits for all previous operations to be retired and disables reordering around itself
     }
     return result;
-}
-
-double process2(){
-    double result = 0;
-    for (auto b: values) {
-        result += b * delta - (!b) * delta; // True=1, false = 0; no Jump instructions are generated -> no speculative execution
-    }
-    return result;
-}
-
-
-__attribute__((noinline)) double process(){
-    scope_timer _{"Process time"};
-    return USE_NONSPECULATIVE ? process2() : process1(); //USE_NONSPECULATIVE is constexpr, check will be optimized at the compile time
 }
 
 int main(){
     double result;
 
-    std::cout << "P-0.5 fill"<<std::endl;
+    std::cout << "P{1}=0.5 fill"<<std::endl;
     fill_random(0.5);
     result = process();
     std::cout << "Result:" <<result << std::endl<< std::endl;
 
 
-    std::cout << "P-0.75 fill"<<std::endl;
+    std::cout << "P{1}=0.75 fill"<<std::endl;
     fill_random(0.75);
     result = process();
     std::cout << "Result:" <<result << std::endl<< std::endl;
 
 
-    std::cout << "P-0.9 fill"<<std::endl;
+    std::cout << "P{1}=0.9 fill"<<std::endl;
     fill_random(0.9);
     result = process();
     std::cout << "Result:" <<result << std::endl<< std::endl;

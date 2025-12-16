@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.5)
+
 project(L7 CXX)
 
 if(MSVC)

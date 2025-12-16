@@ -16,9 +16,9 @@ std::vector<short> mul4_bad(const std::vector<short>& v){
     std::vector<short> result(v.size());
     for(long long i = 0; i < v.size();++i){
         asm(
-                "mov ax, %1\n\t"
-                "lea ax, [eax*4]\n\t" //incomplete rewrite
-                "mov %0, ax\n\t"
+                "mov ax, %1 \n\t"
+                "lea ax, [eax*4] \n\t" //incomplete rewrite
+                "mov %0, ax \n\t"
                 : "=m"(result[i])
                 : "m"(v[i])
                 : "rax"
@@ -31,9 +31,9 @@ std::vector<short> mul4_good(const std::vector<short>& v){
     std::vector<short> result(v.size());
     for(long long i = 0; i < v.size();++i){
         asm(
-                "movzx eax, short %1\n\t"
+                "movzx eax, word ptr %1\n\t"
                 "lea eax, [eax*4]\n\t"    //complete rewrite
-                "mov %0, ax\n\t"
+                "mov %0, ax \n\t"
                 : "=m"(result[i])
                 : "m"(v[i])
                 : "rax"

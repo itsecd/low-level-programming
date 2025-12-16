@@ -27,7 +27,7 @@ user avg_user(std::span<const user> users){
     return {(int)age, money};
 }
 
-constexpr size_t USERS_COUNT = 16;
+constexpr size_t USERS_COUNT = 16384;
 
 int main(){
     std::vector<user> users(USERS_COUNT);

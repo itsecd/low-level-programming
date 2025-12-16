@@ -48,9 +48,9 @@ public:
 template<typename T>
 Matrix<T> mul(const Matrix<T>& a, const Matrix<T>& b){
     if(a.cols != b.rows)
-        throw std::logic_error("Incompatible dimenions" );
-    Matrix result{a.rows, b.cols};
+        throw std::logic_error("Incompatible dimensions" );
 
+    Matrix result{a.rows, b.cols};
     for (size_t i = 0; i < a.rows; ++i)
         for (size_t j = 0; j < b.cols; ++j) {
             T value = {};
@@ -66,7 +66,8 @@ Matrix<T> mul(const Matrix<T>& a, const Matrix<T>& b){
 template<typename T>
 Matrix<T> Tmul(const Matrix<T>& a, const Matrix<T>& b){
     if(a.cols != b.rows)
-        throw std::logic_error("Incompatible dimenions" );
+        throw std::logic_error("Incompatible dimensions" );
+
     Matrix result{a.rows, b.cols};
     Matrix tmp = b.transpose();
     for (size_t i = 0; i < a.rows; ++i)

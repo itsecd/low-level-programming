@@ -30,5 +30,5 @@ int main(){
         std::jthread t{process, std::ref(ns.x)};
         process(ns.y);
     }
-    std::cout << ((s.x==ns.x)&&(s.y == ns.y));
+    std::cout <<"Results equal? " << std::boolalpha<< ((s.x==ns.x)&&(s.y == ns.y));
 }
