@@ -1,7 +1,7 @@
 ; https://chromium.googlesource.com/chromiumos/docs/+/HEAD/constants/syscalls.md#x86_64-64_bit
 
 section .rodata
-str: db "Hello world!", 0
+str: db "Hello world!",13,10, 0
 str_end: db 0 ; use to compute string length
 
 section .text

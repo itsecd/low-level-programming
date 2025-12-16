@@ -36,9 +36,11 @@
 
 [8.Прерывания и исключения. Режимы работы ЦП](Lectures/8.IO_and_execution_modes)
 
-[9.CISC, RISC и VLIW. Обзор архитектуры ARM](Lectures/9.ARM)
+[9.Отладка и виртуализация](Lectures/9.Debugging_and_VM)
 
-[10.Отладка и виртуализация](Lectures/10.Debugging_and_VM)
+[10.CISC, RISC и VLIW. Обзор архитектуры ARM](Lectures/10.CISC_RISC_ARM)
+
+
 
 ## Лабораторные работы
 
