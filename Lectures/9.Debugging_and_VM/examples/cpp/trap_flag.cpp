@@ -5,7 +5,7 @@ void toggle_trap_flag(){
     asm(
     "pushf\n\t"
     "mov ax, [rsp]\n\t"
-    "xor ax, 0b100000000\n\t"
+    "xor ax, 0x100\n\t"
     "mov [rsp], ax\n\t"
     "popf\n\t"
     );

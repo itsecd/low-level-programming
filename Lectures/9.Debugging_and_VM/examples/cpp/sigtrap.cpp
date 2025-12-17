@@ -10,38 +10,20 @@
 
 void enable_writing(void* address){
     void* page_address = (void*)((unsigned long long )address & ((-1ll)<<12));
-#ifdef __MINGW32__
-    DWORD tmp;
-    if(!VirtualProtect(page_address, 4096, PAGE_EXECUTE_READWRITE,&tmp))
-    {
-        perror("VirtualProtect failed");
-        exit(-1);
-    }
-#else
     if(mprotect(page_address, 4096, PROT_WRITE|PROT_EXEC))
     {
         perror("mprotect failed");
         exit(-1);
     }
-#endif
 }
 
 void disable_writing(void* address){
     void* page_address = (void*)((unsigned long long )address & ((-1ll)<<12));
-#ifdef __MINGW32__
-    DWORD tmp;
-    if(!VirtualProtect(page_address, 4096, PAGE_EXECUTE_READ,&tmp))
-    {
-        perror("VirtualProtect failed");
-        exit(-1);
-    }
-#else
     if(mprotect(page_address, 1, PROT_EXEC))
     {
         perror("mprotect failed");
         exit(-1);
     }
-#endif
 }
 
 char old_value;
